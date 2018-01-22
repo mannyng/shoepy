@@ -21,9 +21,10 @@ gem 'aasm'
 gem 'simple_command'
 gem 'geocoder'
 #gem 'geoip2_compat'
-#gem 'geoip-c'
+
 
 group :development, :test do
+  gem 'geoip2_compat'
   gem 'rspec-rails', '~> 3.6'
   # Use Factory Girl for generating random test data
   #gem 'factory_girl_rails'
