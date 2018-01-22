@@ -21,7 +21,7 @@ gem 'aasm'
 gem 'simple_command'
 gem 'geocoder'
 #gem 'geoip2_compat'
-gem 'geoip-c'
+#gem 'geoip-c'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.6'
