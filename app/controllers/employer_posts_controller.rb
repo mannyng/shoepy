@@ -8,7 +8,8 @@ class EmployerPostsController < ApplicationController
       render json: employer, status: :ok
     end
    def public_jobs
-     geoip = GeoIP2Compat.new('/opt/GeoIP/GeoLite2-City_20171205/GeoLite2-City.mmdb')
+     #geoip = GeoIP2Compat.new('/opt/GeoIP/GeoLite2-City_20171205/GeoLite2-City.mmdb')
+     geoip = GeoIP2Compat.new('/opt/GeoIP/GeoLite2-City_20180102/GeoLite2-City.mmdb')
      cunnect = geoip.lookup(request.remote_ip)
      locations = JobLocation.near([cunnect[:latitude],cunnect[:longitude]],200000)
      #employers = EmployerPost.all
@@ -23,13 +24,15 @@ class EmployerPostsController < ApplicationController
       render json: publicjobs, status: :ok
    end
     def my_point
-        geoip = GeoIP2Compat.new('/opt/GeoIP/GeoLite2-City_20171205/GeoLite2-City.mmdb')
+        #geoip = GeoIP2Compat.new('/opt/GeoIP/GeoLite2-City_20171205/GeoLite2-City.mmdb')
+        geoip = GeoIP2Compat.new('/opt/GeoIP/GeoLite2-City_20180102/GeoLite2-City.mmdb')
         @cunnect = geoip.lookup(request.remote_ip)
         render json: @cunnect, status: :ok
     end
      
    def private_jobs
-     geoip = GeoIP2Compat.new('/opt/GeoIP/GeoLite2-City_20171205/GeoLite2-City.mmdb')
+     #geoip = GeoIP2Compat.new('/opt/GeoIP/GeoLite2-City_20171205/GeoLite2-City.mmdb')
+     geoip = GeoIP2Compat.new('/opt/GeoIP/GeoLite2-City_20180102/GeoLite2-City.mmdb')
      cunnect = geoip.lookup(request.remote_ip)
      locations = JobLocation.near([cunnect[:latitude],cunnect[:longitude]],200000)
      #employers = EmployerPost.all
