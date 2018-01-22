@@ -1,4 +1,6 @@
 class EmployerPostsController < ApplicationController
+    require 'geoip'
+    
     before_action :authenticate_request!, except: [:index,:public_jobs,:my_point]
     before_action :set_employer_post, only: [:show,:edit,:update,:destroy]
     
@@ -25,8 +27,8 @@ class EmployerPostsController < ApplicationController
    end
     def my_point
         #geoip = GeoIP2Compat.new('/opt/GeoIP/GeoLite2-City_20171205/GeoLite2-City.mmdb')
-        geoip = GeoIP2Compat.new('/opt/GeoIP/GeoLite2-City_20180102/GeoLite2-City.mmdb')
-        @cunnect = geoip.lookup(request.remote_ip)
+        geoip = GeoIP::City.new('/opt/GeoIP/GeoLiteCity.dat')
+        @cunnect = geoip.look_up(request.remote_ip)
         render json: @cunnect, status: :ok
     end
      
