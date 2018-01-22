@@ -17,7 +17,7 @@ class EmployeePostsController < ApplicationController
   # GET /employee_posts/1.json
   def public_requests
      #geoip = GeoIP2Compat.new('/opt/GeoIP/GeoLite2-City_20171205/GeoLite2-City.mmdb')
-     geoip = GeoIP2Compat.new('/opt/GeoIP/GeoLite2-City_20180102/GeoLite2-City.mmdb')
+     geoip = GeoIP::City.new('/opt/GeoIP/GeoLiteCity.dat')
      cunnect = geoip.lookup(request.remote_ip)
      locations = EmployeePost.near([cunnect[:latitude],cunnect[:longitude]],200)
      #employers = locations.employer_post

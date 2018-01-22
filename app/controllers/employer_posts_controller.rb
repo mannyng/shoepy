@@ -11,7 +11,7 @@ class EmployerPostsController < ApplicationController
     end
    def public_jobs
      #geoip = GeoIP2Compat.new('/opt/GeoIP/GeoLite2-City_20171205/GeoLite2-City.mmdb')
-     geoip = GeoIP2Compat.new('/opt/GeoIP/GeoLite2-City_20180102/GeoLite2-City.mmdb')
+     geoip = GeoIP::City.new('/opt/GeoIP/GeoLiteCity.dat')
      cunnect = geoip.lookup(request.remote_ip)
      locations = JobLocation.near([cunnect[:latitude],cunnect[:longitude]],200000)
      #employers = EmployerPost.all
@@ -34,7 +34,7 @@ class EmployerPostsController < ApplicationController
      
    def private_jobs
      #geoip = GeoIP2Compat.new('/opt/GeoIP/GeoLite2-City_20171205/GeoLite2-City.mmdb')
-     geoip = GeoIP2Compat.new('/opt/GeoIP/GeoLite2-City_20180102/GeoLite2-City.mmdb')
+     geoip = GeoIP::City.new('/opt/GeoIP/GeoLiteCity.dat')
      cunnect = geoip.lookup(request.remote_ip)
      locations = JobLocation.near([cunnect[:latitude],cunnect[:longitude]],200000)
      #employers = EmployerPost.all
