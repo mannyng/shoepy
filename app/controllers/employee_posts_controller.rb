@@ -1,4 +1,6 @@
 class EmployeePostsController < ApplicationController
+  require 'geoip'
+  
   before_action :authenticate_request! 
   before_action :set_employee_post, only: [:show, :edit, :update, :destroy]
 
