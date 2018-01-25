@@ -6,6 +6,8 @@ class Customer < ApplicationRecord
     has_many :job_locations, through: :employer_posts
     has_many :customer_connects
     has_many :conversations
+    has_many :messages
+    #has_many :messages, through: :conversations  #checking this out
     has_many :friends, through: :customer_connects
     has_many :pending_customer_connects, class_name: 'CustomerConnect',foreign_key: :customer_id
     has_many :pending_friends, through: :pending_customer_connects, source: :friend

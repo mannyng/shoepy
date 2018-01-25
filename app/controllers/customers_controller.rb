@@ -10,12 +10,14 @@ class CustomersController < ApplicationController
         #@user = User.find(params[:id])
         #myprofile = @user.customer
         myprofile = Customer.find_by_user_id(params[:id])
-        myconvos = Conversation.involving(myprofile)
+        #myconvos = Conversation.involving(myprofile)
         messages = []
-        myconvos.each do |x|
-          messages <<  {conversations: x, messages: x.messages}
-        end
-        
+        #myconvos.each do |x|
+        #  messages <<  {conversations: x, messages: x.messages}
+        #end
+        myprofile.friends.each do |x|
+          messages <<  {friend: x, x_messages: x.messages}
+         end 
         render json: {myprofile: myprofile, mymessages: messages, status: :ok}
     end
     def myposts
