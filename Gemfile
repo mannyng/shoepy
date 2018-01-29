@@ -20,8 +20,8 @@ gem 'jwt'
 gem 'aasm'
 gem 'simple_command'
 gem 'geocoder'
-#gem 'geoip2_compat'
-
+gem 'carrierwave', '~> 1.0'
+gem 'mini_magick'
 
 group :development, :test do
   gem 'geoip2_compat'

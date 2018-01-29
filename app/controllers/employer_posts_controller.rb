@@ -16,7 +16,7 @@ class EmployerPostsController < ApplicationController
      locations = JobLocation.near([cunnect[:latitude],cunnect[:longitude]],200000)
      #employers = EmployerPost.all
      publicjobs = []
-      locations.order(id: :asc).limit(3).each do |location|
+      locations.order(id: :asc).limit(6).each do |location|
         
             publicjobs << {job: location.employer_post, location: location, insight: location.insight, customer: location.customer}
        #publicjobs << {job: job, insight: job.insights, location: job.job_locations}
