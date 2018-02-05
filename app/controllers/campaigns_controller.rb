@@ -1,5 +1,10 @@
 class CampaignsController < ApplicationController
-    before_action :authenticate_request!
+    #before_action :authenticate_request!, only: [:create,:update,:edit,:new,:destroy,:show]
+    
+    def index
+        @campaigns = Campaign.all
+        render json: @campaigns
+    end
     
     def create
      @campaign = Campaign.new(campaign_params)

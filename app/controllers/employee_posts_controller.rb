@@ -1,7 +1,7 @@
 class EmployeePostsController < ApplicationController
   require 'geoip'
   
-  before_action :authenticate_request! 
+  before_action :authenticate_request!, except: [:public_requests] 
   before_action :set_employee_post, only: [:show, :edit, :update, :destroy]
 
   # GET /employee_posts
@@ -18,14 +18,10 @@ class EmployeePostsController < ApplicationController
   # GET /employee_posts/1
   # GET /employee_posts/1.json
   def public_requests
-     #geoip = GeoIP2Compat.new('/opt/GeoIP/GeoLite2-City_20171205/GeoLite2-City.mmdb')
-     geoip = GeoIP::City.new('/opt/GeoIP/GeoLiteCity.dat')
-     cunnect = geoip.look_up(request.remote_ip)
-     locations = EmployeePost.near([cunnect[:latitude],cunnect[:longitude]],200)
-     #employers = locations.employer_post
-     publicrequests = []
-      locations.each do |location|
-        publicjobs << {request: location.employer_post}
+     @employee_posts = EmployeePost.all
+    publicrequests = []
+      @employee_posts.each do |employee_post|
+        publicrequests << {job_request: employee_post, customer: employee_post.customer}
       end
       render json: publicrequests, status: :ok
   end

@@ -5,9 +5,12 @@ class EmployerPostsController < ApplicationController
     before_action :set_employer_post, only: [:show,:edit,:update,:destroy]
     
     def index
-      employer = EmployerPost.all
-      
-      render json: employer, status: :ok
+      employers = EmployerPost.all
+      alljobs = []
+      employers.each do |employer|
+          alljobs << {job: employer, location: employer.job_location, insight: employer.insight, customer: employer.customer}
+      end      
+      render json: alljobs, status: :ok
     end
    def public_jobs
      #geoip = GeoIP2Compat.new('/opt/GeoIP/GeoLite2-City_20171205/GeoLite2-City.mmdb')

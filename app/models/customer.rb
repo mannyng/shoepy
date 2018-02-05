@@ -19,8 +19,8 @@ class Customer < ApplicationRecord
   #scope :accepted_connects, -> (state) {where(state: 'accepted') }
   #scope :eposts, -> (customer_id) { where(customer_id: id) }
   #scope :confirmed_posters, -> (status) { where(status: 'confirmed') }
-  scope :the_employer, -> { where(customer_type: :Employer) }
-  scope :the_employee, -> { where(customer_type: :Employee) }
+  scope :the_employer, -> { where(customer_type: :employer) }
+  scope :the_employee, -> { where(customer_type: :employee) }
   
   geocoded_by :myaddress
   after_validation :geocode
