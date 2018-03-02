@@ -5,7 +5,7 @@ class JobLocation < ApplicationRecord
     has_one :customer, through: :employer_post
     
     geocoded_by :co_address
-    after_validation :geocode, if: ->(obj){ obj.co_address.present? }
+    after_validation :geocode #, if: ->(obj){ obj.co_address.present? }
    # after_validation :geocode, if: :address_changed?
 
   def co_address
