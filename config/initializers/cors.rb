@@ -7,7 +7,8 @@
 
  Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-     origins 'kwangs-rorturtola.c9users.io','https://kwangs-rorturtola.c9users.io','kofian7-cloned-kofian.c9users.io','kwanga.ml'
+     origins 'kwangs-rorturtola.c9users.io','https://kwangs-rorturtola.c9users.io','kofian7-cloned-kofian.c9users.io',
+     '192.168.1.65', 'kwanga.ml'
 #
      resource '*',
        headers: :any,

@@ -22,6 +22,7 @@ gem 'simple_command'
 gem 'geocoder'
 gem 'carrierwave', '~> 1.0'
 gem 'mini_magick'
+gem 'will_paginate', '~> 3.1.0'
 
 group :development, :test do
   gem 'geoip2_compat'

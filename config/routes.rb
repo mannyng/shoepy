@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       get 'public_jobs'
       get 'private_jobs'
       get 'my_point'
+      get 'offer_list'
      end
  end
  resources :employee_posts do
