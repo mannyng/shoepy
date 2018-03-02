@@ -22,12 +22,15 @@ class Customer < ApplicationRecord
   scope :the_employer, -> { where(customer_type: :employer) }
   scope :the_employee, -> { where(customer_type: :employee) }
   
-  geocoded_by :myaddress
+  geocoded_by :myaddress || :mystate
   after_validation :geocode
   #after_validation :geocode, if: ->(obj){ obj.myaddress.present? and obj.myaddress_changed? }
 
   def myaddress
    [address,city,state,country].compact.join(',')
+  end
+  def mystate
+   [state,country].compact.join(',')
   end
   def address_changed?
     address_changed? || city_changed? || state_chaanged? || country_changed?
