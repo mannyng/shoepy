@@ -8,7 +8,7 @@ class EmployerPostsController < ApplicationController
     def index
       employers = EmployerPost.all
       alljobs = []
-      employers.each do |employer|
+      employers.order(id: :desc).each do |employer|
           alljobs << {job: employer, location: employer.job_location, insight: employer.insight, customer: employer.customer}
       end      
       render json: alljobs, status: :ok
