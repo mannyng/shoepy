@@ -30,12 +30,12 @@ class CustomerConnectsController < ApplicationController
     if @customer_connect.accept!
      #current_customer.create_activity @customer_connect, 'accepted'
      CustomerConnectMailer.friend_request_accepted(@customer_connect.friend).deliver
-     format.json { render json: @customer_connect, status: "Acceptted connection with #{@customer_connect.friend.full_name }"}
+     render json: { customer_connect: @customer_connect, status: :created }
      else
-       format.json { render json: @customer_connect, status: "The connect request is not accepted"}
+       render json: {errors:  @customer_connect.errors, status: :unprocessable_entity }
     end
    end
-     format.json { render json: @customer_connect, status: "Please try again or check your logs"}
+      #render json: @customer_connect, status: "Please try again or check your logs"
   end
    def requesting
      @customer_connect = CustomerConnect.find(params[:id])
@@ -103,7 +103,12 @@ class CustomerConnectsController < ApplicationController
    @customer_connect = customer_onnect.update!(customer_con_params)
    #@customer_connect = current_customer.customer_connects.new(friend_id: @friend.id)
   end
-  
+   def destroy
+    @customer_connect = CustomerConnect.find(params[:id])
+     @customer_connect.destroy!
+      #format.json { head :no_content }
+   end
+     
 
   private
    def customer_con_params

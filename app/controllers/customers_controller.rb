@@ -11,22 +11,32 @@ class CustomersController < ApplicationController
         #myprofile = @user.customer
         myprofile = Customer.find_by_user_id(params[:id])
         #myconvos = Conversation.involving(myprofile)
+        myposts = []
+        if myprofile.customer_type == 'employer'
+          myposts = myprofile.employer_posts
+        elsif myprofile.customer_type == 'employee'
+          myposts = myprofile.employee_posts
+        end  
         messages = []
-        #myconvos.each do |x|
-        #  messages <<  {conversations: x, messages: x.messages}
-        #end
+        myconv = []
         myprofile.friends.each do |x|
-          messages <<  {friend: x, x_messages: x.messages}
-         end 
-        render json: {myprofile: myprofile, mymessages: messages, status: :ok}
+          messages <<  {friend: x, x_messages: x.messages} 
+         end
+       myprofile.conversations.each do |y|
+           myconv << {messagas: y.messages,sender: y.sender, recipient: y.recipient}
+        end   
+        render json: {myprofile: myprofile, mymessages: messages, myconv: myconv, myposts: myposts, status: :ok}
     end
     def myposts
        myposts = []
         customer = Customer.find_by_user_id(params[:id])
+        if customer.customer_type == 'employer'
         customer.employer_posts.each do |mypost|
             myposts << {mypost: mypost, insight: mypost.insight, location: mypost.job_location}
         end
-        
+        elsif customer.customer_type == 'employee'
+          myposts = customer.employee_posts
+        end
         render json: myposts, status: :ok
     end 
     
