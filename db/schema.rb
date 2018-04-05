@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180127152705) do
+ActiveRecord::Schema.define(version: 20180331055057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,13 @@ ActiveRecord::Schema.define(version: 20180127152705) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["city", "state", "status", "username", "latitude", "longitude"], name: "CTS-INDEX"
+  end
+
+  create_table "discussions", force: :cascade do |t|
+    t.integer "customer_connect_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_connect_id"], name: "index_discussions_on_customer_connect_id"
   end
 
   create_table "employee_posts", force: :cascade do |t|

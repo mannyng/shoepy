@@ -9,17 +9,18 @@ class CustomerConnectsController < ApplicationController
 
    def my_connections
     myconnections = []
-     #@customer = Customer.find(params[:customer_id])
-     @customer = Customer.find_by_user_id(params[:customer_id])
+     @customer = Customer.find(params[:customer_id])
+     #@customer = Customer.find_by_user_id(params[:customer_id])
      #@customer.customer_connects.accepted_connects.each do |cc|
-     @customer.customer_connects.each do |cc|
-      myconnections << {customer_connect: cc, friend: cc.friend, customer: cc.customer}
-     end
-     #@customer.accepted_customer_connects.accepted_connects.each do |cc|
-     @customer.accepted_customer_connects.each do |cc|
-      myconnections << {customer_connect: cc, friend: cc.friend, customer: cc.customer}
-     end  
-     render json: myconnections, status: :ok
+     
+       @customer.customer_connects.each do |cc|
+        myconnections << {customer_connect: cc, friend: cc.friend, customer: cc.customer}
+       end
+       #@customer.accepted_customer_connects.accepted_connects.each do |cc|
+       @customer.accepted_customer_connects.each do |cc|
+        myconnections << {customer_connect: cc, friend: cc.friend, customer: cc.customer}
+       end  
+       render json: myconnections, status: :ok
    end
     
   def accept
@@ -28,6 +29,7 @@ class CustomerConnectsController < ApplicationController
     @customer_connect = CustomerConnect.find(params[:id])
    
     if @customer_connect.accept!
+     CustomerConnect.create_discussion(@customer_connect)
      #current_customer.create_activity @customer_connect, 'accepted'
      CustomerConnectMailer.friend_request_accepted(@customer_connect.friend).deliver
      render json: { customer_connect: @customer_connect, status: :created }

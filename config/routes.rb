@@ -12,12 +12,14 @@ Rails.application.routes.draw do
      member do
       get 'myposts'
       get 'my_friends'
+      get 'myconvos'
      end
      
     resources :customer_connects do
       member do
        get 'confirm'
        get 'accept'
+       get 'customer_connect_discussion'
       end
       
      collection do

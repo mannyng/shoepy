@@ -3,6 +3,10 @@ class CustomerConnect < ApplicationRecord
 
  belongs_to :customer
  belongs_to :friend, class_name: 'Customer', foreign_key: 'friend_id'
+ #has_one :discussion
+ #has_many :messages, through: :discussion
+ 
+ #accepts_nested_attributes_for :discussion, allow_destroy: true
  
  scope :accepted_connects, ->(state) {where(state: 'accepted') }
 
@@ -28,6 +32,13 @@ event :block do
 
   end
 
+  # Cheesy method to be used in controller.
+  #def create_discussion(customer_connect)
+  #  transaction do
+  #   discussion = Discussion.new(customer_connect_id: customer_connect)
+   #  discussion.save!
+   # end
+  #end
   def self.request(customer1,customer2,subject,msg,customer_connect)
    transaction do
      friendship1 = new(customer_id: customer2, friend_id: customer1, state: 'pending', subject: subject, msg: msg)

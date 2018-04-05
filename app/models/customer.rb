@@ -5,7 +5,7 @@ class Customer < ApplicationRecord
     has_many :insights, through: :employer_posts
     has_many :job_locations, through: :employer_posts
     has_many :customer_connects
-    #has_many :conversations
+    
     has_many :messages
     has_many :conversations, through: :messages  #checking this out
     has_many :friends, through: :customer_connects

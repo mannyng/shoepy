@@ -22,11 +22,23 @@ class CustomersController < ApplicationController
         myprofile.friends.each do |x|
           messages <<  {friend: x, x_messages: x.messages} 
          end
-       myprofile.conversations.each do |y|
+         convos = Conversation.involving(myprofile)
+       #myprofile.conversations.each do |y|
+       convos.each do |y|
            myconv << {messagas: y.messages,sender: y.sender, recipient: y.recipient}
         end   
         render json: {myprofile: myprofile, mymessages: messages, myconv: myconv, myposts: myposts, status: :ok}
     end
+    def myconvos
+        myconvos = []
+        customer = Customer.find_by_user_id(params[:id])
+        convos = Conversation.involving(customer)
+        
+        convos.each do |y|
+           myconvos << {messagas: y.messages.reverse.first,sender: y.sender, recipient: y.recipient}
+        end 
+        render json: myconvos,status: :ok
+    end    
     def myposts
        myposts = []
         customer = Customer.find_by_user_id(params[:id])
