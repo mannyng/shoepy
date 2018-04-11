@@ -65,7 +65,7 @@ class CustomerConnectsController < ApplicationController
   if params[:customer_connect] && params[:customer_connect].has_key?(:friend_id)
   @friend = Customer.find(params[:friend_id])
   subject = "Connect" #params[:subject]
-  msg = "I will like to connect with you sir/madam" #params[:msg]
+  #msg = "I will like to connect with you sir/madam" #params[:msg]
   @customer_id = params[:customer_id]
   #@state = params[:state]
   #@customer_connect = CustomerConnect.new(customer_con_params)
@@ -84,15 +84,11 @@ class CustomerConnectsController < ApplicationController
      # redirect_to employer_posts_path
      # end
     format.json { render json: @customer_connect, status: :precondition_failed}
-    else
+    #else
      #I will have to sort out the domain name
      #CustomerConnectMailer.welcome(@friend).deliver
-     #@customer_connect.requesting!
-     #format.html do 
-      #flash[:success] = "Connect request sent"
-      #redirect_to customer_path(@customer_connect.customer_id)
-     #end
-     format.json { render json: @customer_connect, status: :created_ok }
+     
+     #format.json { render json: @customer_connect, status: :created_ok }
     end
    #end 
    else
