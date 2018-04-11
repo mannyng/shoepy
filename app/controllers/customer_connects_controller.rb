@@ -30,7 +30,8 @@ class CustomerConnectsController < ApplicationController
    
     if @customer_connect.accept!
      #current_customer.create_activity @customer_connect, 'accepted'
-     CustomerConnectMailer.friend_request_accepted(@customer_connect.customer).deliver
+     #I will have to sort out the domain name
+     #CustomerConnectMailer.friend_request_accepted(@customer_connect.customer).deliver
      render json: { customer_connect: @customer_connect, status: :created }
      else
        render json: {errors:  @customer_connect.errors, status: :unprocessable_entity }
@@ -84,13 +85,14 @@ class CustomerConnectsController < ApplicationController
      # end
     format.json { render json: @customer_connect, status: :precondition_failed}
     else
-     CustomerConnectMailer.welcome(@friend).deliver
+     #I will have to sort out the domain name
+     #CustomerConnectMailer.welcome(@friend).deliver
      #@customer_connect.requesting!
      #format.html do 
       #flash[:success] = "Connect request sent"
       #redirect_to customer_path(@customer_connect.customer_id)
      #end
-     #format.json { render json: @customer_connect }
+     format.json { render json: @customer_connect, status: :created_ok }
     end
    #end 
    else
