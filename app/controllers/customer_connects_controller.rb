@@ -29,7 +29,6 @@ class CustomerConnectsController < ApplicationController
     @customer_connect = CustomerConnect.find(params[:id])
    
     if @customer_connect.accept!
-     CustomerConnect.create_discussion(@customer_connect)
      #current_customer.create_activity @customer_connect, 'accepted'
      CustomerConnectMailer.friend_request_accepted(@customer_connect.friend).deliver
      render json: { customer_connect: @customer_connect, status: :created }
