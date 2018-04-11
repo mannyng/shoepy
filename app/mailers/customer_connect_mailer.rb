@@ -8,7 +8,7 @@ class CustomerConnectMailer < ApplicationMailer
         
         delivery_options = { user_name: "SMTP_KEY",
                            password: "SMPT_PASS",
-                           address: "meijerfinance.com" }
+                           address: "mail.meijerfinance.com" }
         mail(
             subject: "Welcome to Kwangs",
             to: @friend.user.email,
@@ -22,7 +22,7 @@ class CustomerConnectMailer < ApplicationMailer
         
         delivery_options = { user_name: "SMTP_KEY",
                            password: "SMPT_PASS",
-                           address: "meijerfinance.com" }
+                           address: "mail.meijerfinance.com" }
         mail(
             subject: "Thanks for connecting",
             to: @customer.user.email,
