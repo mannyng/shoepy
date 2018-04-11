@@ -8,7 +8,7 @@ class CustomerConnectMailer < ApplicationMailer
         
         delivery_options = { user_name: "SMTP_KEY",
                            password: "SMPT_PASS",
-                           address: "mail.kwanga.ml" }
+                           address: "kwanga.ml" }
         mail(
             subject: "Welcome to Kwangs",
             to: @friend.user.email,
@@ -22,7 +22,7 @@ class CustomerConnectMailer < ApplicationMailer
         
         delivery_options = { user_name: "SMTP_KEY",
                            password: "SMPT_PASS",
-                           address: "mail.kwanga.ml" }
+                           address: "kwanga.ml" }
         mail(
             subject: "Thanks for connecting",
             to: @customer.user.email,
