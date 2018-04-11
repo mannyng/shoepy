@@ -1,5 +1,5 @@
 class CustomerConnectMailer < ApplicationMailer
-    default from: "jobcare@kwanga.ml"
+    default from: "jobcare@meijerfinance.com"
     
     def welcome(friend,sent_at=Time.now)
         @friend = friend
@@ -8,7 +8,7 @@ class CustomerConnectMailer < ApplicationMailer
         
         delivery_options = { user_name: "SMTP_KEY",
                            password: "SMPT_PASS",
-                           address: "kwanga.ml" }
+                           address: "meijerfinance.com" }
         mail(
             subject: "Welcome to Kwangs",
             to: @friend.user.email,
@@ -22,7 +22,7 @@ class CustomerConnectMailer < ApplicationMailer
         
         delivery_options = { user_name: "SMTP_KEY",
                            password: "SMPT_PASS",
-                           address: "kwanga.ml" }
+                           address: "meijerfinance.com" }
         mail(
             subject: "Thanks for connecting",
             to: @customer.user.email,
