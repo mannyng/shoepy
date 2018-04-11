@@ -1,5 +1,5 @@
 class CustomerConnectMailer < ApplicationMailer
-    default from: "support@kwanga.ml"
+    default from: "jobcare@kwanga.ml"
     
     def welcome(friend,sent_at=Time.now)
         @friend = friend
