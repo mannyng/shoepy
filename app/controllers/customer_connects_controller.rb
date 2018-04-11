@@ -30,7 +30,7 @@ class CustomerConnectsController < ApplicationController
    
     if @customer_connect.accept!
      #current_customer.create_activity @customer_connect, 'accepted'
-     CustomerConnectMailer.friend_request_accepted(@customer_connect.friend).deliver
+     CustomerConnectMailer.friend_request_accepted(@customer_connect.customer).deliver
      render json: { customer_connect: @customer_connect, status: :created }
      else
        render json: {errors:  @customer_connect.errors, status: :unprocessable_entity }
