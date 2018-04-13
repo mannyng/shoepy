@@ -9,7 +9,8 @@ class EmployerPostsController < ApplicationController
       employers = EmployerPost.all
       alljobs = []
       employers.order(id: :desc).each do |employer|
-          alljobs << {job: employer, location: employer.job_location, insight: employer.insight, customer: employer.customer}
+          alljobs << {job: employer, location: employer.job_location, insight: employer.insight, 
+          customer: employer.customer, user: employer.customer.user}
       end      
       render json: alljobs, status: :ok
     end
@@ -17,7 +18,8 @@ class EmployerPostsController < ApplicationController
         offers = EmployerPost.paginate(:page => params[:page], :per_page => 3)
         alljobs = []
       offers.each do |employer|
-          alljobs << {job: employer, location: employer.job_location, insight: employer.insight, customer: employer.customer}
+          alljobs << {job: employer, location: employer.job_location, insight: employer.insight, 
+          customer: employer.customer, user: employer.customer.user}
       end      
       render json: alljobs, status: :ok
     end    
@@ -30,7 +32,8 @@ class EmployerPostsController < ApplicationController
      publicjobs = []
       #locations.order(id: :asc).limit(6).each do |location|
        locations.order(id: :asc).each do |location| 
-            publicjobs << {job: location.employer_post, location: location, insight: location.insight, customer: location.customer}
+            publicjobs << {job: location.employer_post, location: location, insight: location.insight, 
+            customer: location.customer, user: location.customer.user}
        #publicjobs << {job: job, insight: job.insights, location: job.job_locations}
          
       end
@@ -53,9 +56,8 @@ class EmployerPostsController < ApplicationController
      privatejobs = []
       locations.each do |location|
         
-            privatejobs << {job: location.employer_post, location: location, insight: location.insight, customer: location.customer}
-       
-         
+            privatejobs << {job: location.employer_post, location: location, insight: location.insight, 
+            customer: location.customer, user: location.customer.user}
       end
       
       render json: privatejobs, status: :ok
