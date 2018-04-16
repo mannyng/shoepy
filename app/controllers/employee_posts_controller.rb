@@ -10,7 +10,7 @@ class EmployeePostsController < ApplicationController
     @employee_posts = EmployeePost.all
     publicrequests = []
       @employee_posts.each do |employee_post|
-        publicrequests << {job_request: employee_post, customer: employee_post.customer, user: employee_post.customer.user}
+        publicrequests << {job_request: employee_post, customer: employee_post.customer, user: employee_post.customer.user.email}
       end
       render json: publicrequests, status: :ok
   end
@@ -21,7 +21,7 @@ class EmployeePostsController < ApplicationController
      @employee_posts = EmployeePost.all
     publicrequests = []
       @employee_posts.each do |employee_post|
-        publicrequests << {job_request: employee_post, customer: employee_post.customer, user: employee_post.customer.user}
+        publicrequests << {job_request: employee_post, customer: employee_post.customer, user: employee_post.customer.user.email}
       end
       render json: publicrequests, status: :ok
   end

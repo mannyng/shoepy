@@ -10,7 +10,7 @@ class EmployerPostsController < ApplicationController
       alljobs = []
       employers.order(id: :desc).each do |employer|
           alljobs << {job: employer, location: employer.job_location, insight: employer.insight, 
-          customer: employer.customer, user: employer.customer.user}
+          customer: employer.customer, user: employer.customer.user.email}
       end      
       render json: alljobs, status: :ok
     end
@@ -19,7 +19,7 @@ class EmployerPostsController < ApplicationController
         alljobs = []
       offers.each do |employer|
           alljobs << {job: employer, location: employer.job_location, insight: employer.insight, 
-          customer: employer.customer, user: employer.customer.user}
+          customer: employer.customer, user: employer.customer.user.email}
       end      
       render json: alljobs, status: :ok
     end    
@@ -33,7 +33,7 @@ class EmployerPostsController < ApplicationController
       #locations.order(id: :asc).limit(6).each do |location|
        locations.order(id: :asc).each do |location| 
             publicjobs << {job: location.employer_post, location: location, insight: location.insight, 
-            customer: location.customer, user: location.customer.user}
+            customer: location.customer, user: location.customer.user.email}
        #publicjobs << {job: job, insight: job.insights, location: job.job_locations}
          
       end
@@ -57,7 +57,7 @@ class EmployerPostsController < ApplicationController
       locations.each do |location|
         
             privatejobs << {job: location.employer_post, location: location, insight: location.insight, 
-            customer: location.customer, user: location.customer.user}
+            customer: location.customer, user: location.customer.user.email}
       end
       
       render json: privatejobs, status: :ok
