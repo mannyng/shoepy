@@ -4,7 +4,8 @@ class JobLocation < ApplicationRecord
     has_one :insight, through: :employer_post
     has_one :customer, through: :employer_post
     
-    geocoded_by :co_address || :co_state
+    #geocoded_by :co_address || :co_state
+    geocoded_by :co_state
     after_validation :geocode, if: ->(obj){ obj.co_address.present? }
    # after_validation :geocode, if: :address_changed?
 
@@ -12,7 +13,7 @@ class JobLocation < ApplicationRecord
    [location,city,state,"nigeria"].compact.join(',')
   end
   def co_state
-   [state,"nigeria"].compact.join(',')
+   [city,state,"nigeria"].compact.join(',')
   end
    def co_address_changed?
      co_address.changed?
