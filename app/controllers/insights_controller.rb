@@ -23,7 +23,7 @@ class InsightsController < ApplicationController
 
     
       if @insight.save
-        render json: {insight: @insight, status: 'Job Insight created successfully'}, status: :created
+        render json: @insight, status: :created
       else
         render json: { errors: @insight.errors.full_messages }, status: :bad_request
       end
@@ -31,16 +31,7 @@ class InsightsController < ApplicationController
   end
 
     def update
-    
-      if @insight.update(insight_params)
-        format.html { redirect_to @insight, notice: 'Insight was successfully updated.' }
-        format.json { render :show, status: :ok,insight: @insight }
-      else
-        format.html { render :edit }
-        format.json { render json: @insight.errors, status: :unprocessable_entity }
-        
-      end
-      
+       @insight.update_attributes(insight_params)
     end
 
   def destroy

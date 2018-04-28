@@ -14,14 +14,15 @@ class Customer < ApplicationRecord
     has_many :requested_customer_connects, class_name: 'CustomerConnect',foreign_key: :customer_id
     has_many :requested_friends, through: :requested_customer_connects, source: :friend
     has_many :accepted_customer_connects, class_name: 'CustomerConnect',foreign_key: :friend_id
+    #has_many :accepted_connects, class_name: 'CustomerConnect',foreign_key: :customer_id || :friend_id
 
   #scope :customer, -> { where(user_id: :current_user) }
-  #scope :accepted_connects, -> (state) {where(state: 'accepted') }
   #scope :eposts, -> (customer_id) { where(customer_id: id) }
   #scope :confirmed_posters, -> (status) { where(status: 'confirmed') }
   scope :the_employer, -> { where(customer_type: :employer) }
   scope :the_employee, -> { where(customer_type: :employee) }
-  
+  scope :most_recent_first, -> {order("customers.created_at DESC")}
+  scope :active_users, -> {where(status: 'active')}
   #geocoded_by :myaddress 
   geocoded_by :mystate
   after_validation :geocode

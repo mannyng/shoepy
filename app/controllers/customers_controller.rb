@@ -4,8 +4,17 @@ class CustomersController < ApplicationController
     
     def index
         @customers = Customer.all
+        
+        render json: @customers,status: :ok
     end
-    
+    def live_users
+        users = []
+        @users = User.most_recent_first
+        @users.each do |x|
+            users << {user: x,customer: x.customer}
+        end
+        render json: users,status: :ok
+    end    
     def show
         #@user = User.find(params[:id])
         #myprofile = @user.customer
@@ -54,9 +63,13 @@ class CustomersController < ApplicationController
     
     
    def my_friends
-     #friends = []
+     #my_friends = []
      customer = Customer.find_by_user_id(params[:id])
      my_friends = customer.friends
+     #cmy_friends = customer.customer_connects.accepted_connects
+     #cmy_friends.each do |c_connect|
+      #   my_friends << {c_connect.friend}
+     #end
      render json: my_friends, status: :ok
    end
    
@@ -78,6 +91,7 @@ class CustomersController < ApplicationController
     end
     
     def update
+       @customer.update_attributes(customer_params)
     end
     
     def destroy

@@ -6,12 +6,21 @@ class EmployerPostsController < ApplicationController
     before_action :check_location, only: [:public_jobs,:private_jobs]
     
     def index
-      employers = EmployerPost.all
+      employers = EmployerPost.most_recent_first
       alljobs = []
       employers.order(id: :desc).each do |employer|
           alljobs << {job: employer, location: employer.job_location, insight: employer.insight, 
           customer: employer.customer, user: employer.customer.user.email}
       end      
+      render json: alljobs, status: :ok
+    end
+    def most_recent_list
+       employers = EmployerPost.most_recent_first
+       alljobs = []
+       employers.each do |employer|
+          alljobs << {job: employer, location: employer.job_location, insight: employer.insight, 
+          customer: employer.customer, user: employer.customer.user.email}
+      end  
       render json: alljobs, status: :ok
     end
     def offer_list
@@ -83,12 +92,19 @@ class EmployerPostsController < ApplicationController
       #insight  = params[:insight]
       #employer_post.insight.build
       if @employer_post.save
-        render json: {employer_post: @employer_post, status: 'Employer Post created successfully'}, status: :created
+        render json: @employer_post, status: :created
       else
         render json: { errors: @employer_post.errors.full_messages }, status: :bad_request
       end
     end
-    
+    def update
+      @employer_post.update_attributes(employer_post_params)
+      #if employer_post.
+      #  render json: @employer_post, status: :updated
+      #else
+      #  render json: { errors: employer_post.errors.full_messages }, status: :bad_request
+      #end
+    end
     private
     
     def employer_post_params

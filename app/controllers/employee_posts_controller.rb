@@ -7,18 +7,21 @@ class EmployeePostsController < ApplicationController
   # GET /employee_posts
   # GET /employee_posts.json
   def index
-    @employee_posts = EmployeePost.all
+    @employee_posts = EmployeePost.recent_requests_first
     publicrequests = []
       @employee_posts.each do |employee_post|
         publicrequests << {job_request: employee_post, customer: employee_post.customer, user: employee_post.customer.user.email}
       end
       render json: publicrequests, status: :ok
   end
-
+  def recent_requests
+    employee_posts = EmployeePost.recent_requests_first
+    render json: employee_posts, status: :ok
+  end  
   # GET /employee_posts/1
   # GET /employee_posts/1.json
   def public_requests
-     @employee_posts = EmployeePost.all
+     @employee_posts = EmployeePost.recent_requests_first
     publicrequests = []
       @employee_posts.each do |employee_post|
         publicrequests << {job_request: employee_post, customer: employee_post.customer, user: employee_post.customer.user.email}
@@ -53,15 +56,7 @@ class EmployeePostsController < ApplicationController
   # PATCH/PUT /employee_posts/1
   # PATCH/PUT /employee_posts/1.json
   def update
-    respond_to do |format|
-      if @employee_post.update(employee_post_params)
-        format.html { redirect_to @employee_post, notice: 'Employee post was successfully updated.' }
-        format.json { render :show, status: :ok, location: @employee_post }
-      else
-        format.html { render :edit }
-        format.json { render json: @employee_post.errors, status: :unprocessable_entity }
-      end
-    end
+     @employee_post.update(employee_post_params)
   end
 
   # DELETE /employee_posts/1

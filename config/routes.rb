@@ -8,11 +8,14 @@ Rails.application.routes.draw do
   end
   resources :customers, only: [:create,:show,:index]
  end
- resources :customers, only: [:create,:show,:index] do
+ resources :customers, only: [:create,:show,:index,:update] do
      member do
       get 'myposts'
       get 'my_friends'
       get 'myconvos'
+     end
+     collection do
+      get 'live_users'
      end
      
     resources :customer_connects do
@@ -39,13 +42,14 @@ Rails.application.routes.draw do
       get 'private_jobs'
       get 'my_point'
       get 'offer_list'
+      get 'most_recent_list'
      end
  end
  resources :employee_posts do
-     resources :insights, :job_locations
+     #resources :insights, :job_locations
      collection do
       get 'public_requests'
-      #get 'private_jobs'
+      get 'recent_requests'
      # get 'my_point'
      end
  end

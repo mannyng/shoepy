@@ -8,7 +8,7 @@ class CustomerConnect < ApplicationRecord
  
  #accepts_nested_attributes_for :discussion, allow_destroy: true
  
- scope :accepted_connects, ->(state) {where(state: 'accepted') }
+ scope :accepted_connects, ->{where(state: 'accepted') }
 
   aasm column: "state" do
     state :requested, initial: true
@@ -60,7 +60,7 @@ event :block do
   end
 
   def mutual_connection
-   self.class.where({customer_id: friend_id,friend_id: customer_id}).first
+   CustomerConnect.where({customer_id: friend_id,friend_id: customer_id}).first
   end
 
 end

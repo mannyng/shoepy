@@ -9,8 +9,8 @@ class CustomerConnectsController < ApplicationController
 
    def my_connections
     myconnections = []
-     @customer = Customer.find(params[:customer_id])
-     #@customer = Customer.find_by_user_id(params[:customer_id])
+     #@customer = Customer.find(params[:customer_id])
+     @customer = Customer.find_by_user_id(params[:customer_id])
      #@customer.customer_connects.accepted_connects.each do |cc|
      
        @customer.customer_connects.each do |cc|

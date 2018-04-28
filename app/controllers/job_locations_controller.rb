@@ -39,11 +39,7 @@ class JobLocationsController < ApplicationController
   # PATCH/PUT /job_locations/1.json
   def update
     
-      if @job_location.update(job_location_params)
-        render json: {status:'Job location was successfully updated.' }, status: :updated
-      else
-        render json: { errors: @job_location.errors.full_messages }, status: :unprocessable_entity 
-      end
+      @job_location.update(job_location_params)
   
   end
   # DELETE /job_locations/1
