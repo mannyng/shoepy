@@ -23,9 +23,9 @@ class Message < ApplicationRecord
     event :delete do
       transitions from: [:read], to: :deleted
     end
-    event :mark_as_unread do
-      transitions from: [:read], to :unread
-    end
+    #event :mark_as_unread do
+    #  transitions from: [:read], to :unread
+    #end
    end
     
 end
