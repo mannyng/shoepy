@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
+  resources :orders
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   #root 'campaigns#index'
  resources :users, only: [:create,:new, :show, :index] do
   collection do
     post 'confirm'
     post 'login'
+  end
+  member do
+    get 'my_line_items'
+    get 'user_type'
   end
   resources :customers, only: [:create,:show,:index]
  end
@@ -33,27 +38,17 @@ Rails.application.routes.draw do
      collection do
       get 'my_messages'
      end
+     member do
+      get 'read'
+     end
     end 
  end
- resources :employer_posts do
-     resources :insights, :job_locations
-     collection do
-      get 'public_jobs'
-      get 'private_jobs'
-      get 'my_point'
-      get 'offer_list'
-      get 'most_recent_list'
-     end
- end
- resources :employee_posts do
-     #resources :insights, :job_locations
-     collection do
-      get 'public_requests'
-      get 'recent_requests'
-     # get 'my_point'
-     end
- end
+ 
+
  resources :conversations, only: [:show,:create]
  resources :messages, only: [:create]
  resources :campaigns, only: [:create]
+ resources :products
+ resources :carts
+ resources :line_items
 end

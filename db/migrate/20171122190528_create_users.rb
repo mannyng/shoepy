@@ -8,6 +8,7 @@ class CreateUsers < ActiveRecord::Migration[5.1]
   t.string   :confirmation_token
   t.datetime :confirmed_at
   t.datetime :confirmation_sent_at
+  t.string :user_type, default: "buyer"
 
   t.timestamps
     end

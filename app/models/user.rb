@@ -3,9 +3,8 @@ class User < ApplicationRecord
     before_save :downcase_email
     before_create :generate_confirmation_instructions
 
+    has_many :line_items, dependent: :destroy
     has_one :customer
-    has_many :employer_posts, through: :customer
-    has_many :employee_posts, through: :customer
     validates_presence_of :email
     validates_uniqueness_of :email, case_sensitive: false
     validates_format_of :email, with: /@/

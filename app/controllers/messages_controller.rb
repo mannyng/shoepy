@@ -2,6 +2,17 @@ class MessagesController < ApplicationController
    before_action :authenticate_request!
    before_action :set_sender_customer, only: [:create]
 
+  def read
+   if params[:id]
+    @message= Message.find(params[:id])
+   
+    if @message.read!
+     render json: {status: :created }
+     else
+       render json: {errors:  @message.errors, status: :unprocessable_entity }
+    end
+  end
+   
   def create
     @conversation = Conversation.find(params[:conversation_id])
     @message = @conversation.messages.build(message_params)

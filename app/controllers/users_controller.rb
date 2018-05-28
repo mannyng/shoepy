@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :authenticate_request!, only: [:show]
+    before_action :authenticate_request!, only: [:index,:show]
   
   def login
    @email = params[:email].downcase
@@ -51,10 +51,26 @@ class UsersController < ApplicationController
    
    def show
      user = User.find(params[:id])
-     
-     render json: {user: user}
+     user_info = {email: user.email, user_type: user.user_type}
+     render json: user, status: :ok
+     #render json: {user: user}
    end
-   
+   def my_line_items
+     user = User.find(params[:id])
+     my_items = user.line_items
+     items = []
+     my_items.each do |item|
+         items << item.product
+     end
+     
+     render json: items, status: :ok
+   end 
+   def user_type
+        user = User.find(params[:id])
+        user_info = user.user_type
+        
+        render json: user_info, status: :ok
+    end
    def index
      users = User.all
      
