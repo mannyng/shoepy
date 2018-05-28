@@ -11,6 +11,7 @@ class MessagesController < ApplicationController
      else
        render json: {errors:  @message.errors, status: :unprocessable_entity }
     end
+   end
   end
    
   def create
