@@ -70,7 +70,7 @@ class UsersController < ApplicationController
         user_info = user.user_type
         
         render json: user_info, status: :ok
-    end
+   end
    def index
      users = User.all
      
